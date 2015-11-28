@@ -10,21 +10,84 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <pthread.h>
+#include "re/re.h"
+#include "baresip.h"
+
+pthread_t tid;
+bool running = false;
+
+
 
 
 //==============================================================================
 StudioLinkAudioProcessor::StudioLinkAudioProcessor()
 {
+
+	(void)re_fprintf(stderr, "activate baresip v%s"
+			" Copyright (C) 2010 - 2015"
+			" Alfred E. Heggestad et al.\n",
+			BARESIP_VERSION);
+
+        if (!running) {
+                
+                (void)re_fprintf(stderr, "activate baresip v%s"
+                                " Copyright (C) 2010 - 2015"
+                                " Alfred E. Heggestad et al.\n",
+                                BARESIP_VERSION);
+                (void)sys_coredump_set(true);
+                libre_init();
+                conf_configure();
+                ua_init("baresip v" BARESIP_VERSION " (" ARCH "/" OS ")",
+                                true, true, true, false);
+                conf_modules();
+                pthread_create(&tid, NULL, (void*(*)(void*))&re_main, NULL);
+                running = true;
+        }
+
 }
 
 StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 {
+	if (running) {
+		re_cancel();
+		(void)pthread_join(tid, NULL);
+		//ua_stop_all(false);
+		ua_close();
+		mod_close();
+		libre_close();
+		running = false;
+	}
 }
 
 //==============================================================================
 const String StudioLinkAudioProcessor::getName() const
 {
     return JucePlugin_Name;
+}
+
+int StudioLinkAudioProcessor::getNumParameters()
+{
+    return 0;
+}
+
+float StudioLinkAudioProcessor::getParameter (int index)
+{
+    return 0.0f;
+}
+
+void StudioLinkAudioProcessor::setParameter (int index, float newValue)
+{
+}
+
+const String StudioLinkAudioProcessor::getParameterName (int index)
+{
+    return String();
+}
+
+const String StudioLinkAudioProcessor::getParameterText (int index)
+{
+    return String();
 }
 
 const String StudioLinkAudioProcessor::getInputChannelName (int channelIndex) const
@@ -123,14 +186,22 @@ void StudioLinkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    for (int channel = 0; channel < getNumInputChannels(); ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
 
-        // ..do something to the data...
+    const float* input0 = buffer.getReadPointer(0);
+    float* output0 = buffer.getWritePointer(0);
+
+    if(getNumInputChannels() > 1) {
+        const float* input1 = buffer.getReadPointer(1);
+        float* output1 = buffer.getWritePointer(1);
+    } else {
+        const float* input1 = buffer.getReadPointer(0);
+        float* output1 = buffer.getWritePointer(0);
     }
+    
+
+    lv2_src(input0, input1, buffer.getNumSamples());
+    lv2_play(output0, output1, buffer.getNumSamples());
+
 }
 
 //==============================================================================

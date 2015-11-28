@@ -32,7 +32,7 @@ void StudioLinkAudioProcessorEditor::paint (Graphics& g)
 
     g.setColour (Colours::black);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+    g.drawFittedText ("http://127.0.0.1:8082/", getLocalBounds(), Justification::centred, 1);
 }
 
 void StudioLinkAudioProcessorEditor::resized()

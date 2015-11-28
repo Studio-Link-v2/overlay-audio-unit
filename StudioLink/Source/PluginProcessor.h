@@ -12,7 +12,10 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+extern "C" {
+	void lv2_play(float* const output0, float* const output1, unsigned long nframes);
+	void lv2_src(const float* const input0, const float* const input1, unsigned long nframes);
+}
 
 //==============================================================================
 /**
@@ -36,6 +39,13 @@ public:
 
     //==============================================================================
     const String getName() const override;
+
+    int getNumParameters() override;
+    float getParameter (int index) override;
+    void setParameter (int index, float newValue) override;
+
+    const String getParameterName (int index) override;
+    const String getParameterText (int index) override;
 
     const String getInputChannelName (int channelIndex) const override;
     const String getOutputChannelName (int channelIndex) const override;
