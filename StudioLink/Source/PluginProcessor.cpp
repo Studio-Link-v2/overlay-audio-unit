@@ -199,8 +199,8 @@ void StudioLinkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     }
     
 
-    lv2_src(input0, input1, buffer.getNumSamples());
-    lv2_play(output0, output1, buffer.getNumSamples());
+    effect_src(input0, input1, buffer.getNumSamples());
+    effect_play(output0, output1, buffer.getNumSamples());
 
 }
 

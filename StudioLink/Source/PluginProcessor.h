@@ -13,8 +13,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 extern "C" {
-	void lv2_play(float* const output0, float* const output1, unsigned long nframes);
-	void lv2_src(const float* const input0, const float* const input1, unsigned long nframes);
+	void effect_play(float* const output0, float* const output1, unsigned long nframes);
+	void effect_src(const float* const input0, const float* const input1, unsigned long nframes);
 }
 
 //==============================================================================
