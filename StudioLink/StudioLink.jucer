@@ -28,7 +28,7 @@
                        isDebug="1" optimisation="1" targetName="StudioLink"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="0" optimisation="3" targetName="StudioLink" headerPath="../../../../my_include"
-                       libraryPath="../../../../baresip/libbaresip.a ../../../../re/libre.a ../../../../rem/librem.a ../../../../opus/libopus.a"/>
+                       libraryPath="" customXcodeFlags=""/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>

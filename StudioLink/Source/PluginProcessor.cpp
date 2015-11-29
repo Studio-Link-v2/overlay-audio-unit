@@ -189,15 +189,13 @@ void StudioLinkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 
     const float* input0 = buffer.getReadPointer(0);
     float* output0 = buffer.getWritePointer(0);
+    const float* input1 = input0;
+    float* output1 = output0;
 
     if(getNumInputChannels() > 1) {
-        const float* input1 = buffer.getReadPointer(1);
-        float* output1 = buffer.getWritePointer(1);
-    } else {
-        const float* input1 = buffer.getReadPointer(0);
-        float* output1 = buffer.getWritePointer(0);
-    }
-    
+        input1 = buffer.getReadPointer(1);
+        output1 = buffer.getWritePointer(1);
+    } 
 
     effect_src(input0, input1, buffer.getNumSamples());
     effect_play(output0, output1, buffer.getNumSamples());
