@@ -50,9 +50,9 @@ StudioLinkAudioProcessor::StudioLinkAudioProcessor()
 StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 {
 	if (running) {
-		re_cancel();
+		//re_cancel();
+		ua_stop_all(false);
 		(void)pthread_join(tid, NULL);
-		//ua_stop_all(false);
 		ua_close();
 		mod_close();
 		libre_close();
