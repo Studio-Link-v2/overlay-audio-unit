@@ -44,6 +44,7 @@ StudioLinkAudioProcessor::StudioLinkAudioProcessor()
                 pthread_create(&tid, NULL, (void*(*)(void*))&re_main, NULL);
                 running = true;
         }
+	sess = effect_session_start();
 
 }
 
@@ -58,6 +59,8 @@ StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 		libre_close();
 		running = false;
 	}
+
+	effect_session_stop(sess);
 }
 
 //==============================================================================
@@ -197,8 +200,8 @@ void StudioLinkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
         output1 = buffer.getWritePointer(1);
     } 
 
-    effect_src(input0, input1, buffer.getNumSamples());
-    effect_play(output0, output1, buffer.getNumSamples());
+    effect_src(sess, input0, input1, buffer.getNumSamples());
+    effect_play(sess, output0, output1, buffer.getNumSamples());
 
 }
 

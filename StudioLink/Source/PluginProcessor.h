@@ -13,8 +13,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 extern "C" {
-	void effect_play(float* const output0, float* const output1, unsigned long nframes);
-	void effect_src(const float* const input0, const float* const input1, unsigned long nframes);
+	struct session;
+	void effect_play(struct session *sess, float* const output0,
+			float* const output1, unsigned long nframes);
+	void effect_src(struct session *sess, const float* const input0,
+			const float* const input1, unsigned long nframes);
+
+	struct session* effect_session_start(void);
+	void effect_session_stop(struct session *session);
 }
 
 //==============================================================================
@@ -69,6 +75,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    struct session *sess;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StudioLinkAudioProcessor)
 };
