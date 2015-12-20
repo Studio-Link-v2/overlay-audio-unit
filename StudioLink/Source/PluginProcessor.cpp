@@ -50,7 +50,7 @@ StudioLinkAudioProcessor::StudioLinkAudioProcessor()
 
 StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 {
-	if (running) {
+	if (!effect_session_stop(sess)) {
 		//re_cancel();
 		ua_stop_all(false);
 		(void)pthread_join(tid, NULL);
@@ -60,7 +60,6 @@ StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 		running = false;
 	}
 
-	effect_session_stop(sess);
 }
 
 //==============================================================================

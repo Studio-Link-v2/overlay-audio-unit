@@ -18,7 +18,6 @@ StudioLinkAudioProcessorEditor::StudioLinkAudioProcessorEditor (StudioLinkAudioP
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
 }
 
 StudioLinkAudioProcessorEditor::~StudioLinkAudioProcessorEditor()
@@ -28,11 +27,7 @@ StudioLinkAudioProcessorEditor::~StudioLinkAudioProcessorEditor()
 //==============================================================================
 void StudioLinkAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);
 
-    g.setColour (Colours::black);
-    g.setFont (15.0f);
-    g.drawFittedText ("http://127.0.0.1:8082/", getLocalBounds(), Justification::centred, 1);
 }
 
 void StudioLinkAudioProcessorEditor::resized()
