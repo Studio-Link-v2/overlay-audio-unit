@@ -201,6 +201,9 @@ void StudioLinkAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
 
     effect_src(sess, input0, input1, buffer.getNumSamples());
     effect_play(sess, output0, output1, buffer.getNumSamples());
+    effect_bypass(sess, output0, output1,
+		    input0, input1, buffer.getNumSamples());
+
 
 }
 
