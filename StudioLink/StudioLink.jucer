@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="yPssax" name="StudioLink" projectType="audioplug" version="16.02.0"
+<JUCERPROJECT id="yPssax" name="StudioLink" projectType="audioplug" version="SLVERSION_N"
               bundleIdentifier="com.itsr.StudioLink" includeBinaryInAppConfig="1"
               buildVST="0" buildVST3="0" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="StudioLink" pluginDesc="StudioLink" pluginManufacturer="ITSR"
