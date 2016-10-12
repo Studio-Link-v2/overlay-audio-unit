@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="yPssax" name="StudioLink" projectType="audioplug" version="SLVERSION_N"
+<JUCERPROJECT id="yPssax" name="StudioLink" projectType="audioplug" version="16.04.1"
               bundleIdentifier="com.itsr.StudioLink" includeBinaryInAppConfig="1"
               buildVST="0" buildVST3="0" buildAU="1" buildRTAS="0" buildAAX="0"
               pluginName="StudioLink" pluginDesc="StudioLink" pluginManufacturer="ITSR"
-              pluginManufacturerCode="ITSR" pluginCode="Ypss" pluginChannelConfigs="{1, 1}, {2, 2}"
+              pluginManufacturerCode="ITSR" pluginCode="Ypss" pluginChannelConfigs="{1, 1}, {2, 2}, {4,2}"
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="StudioLinkAU" pluginRTASCategory="" aaxIdentifier="com.itsr.StudioLink"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.0.2"
-              companyName="IT-Service Sebastian Reimers" companyWebsite="studio-link.de">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.4"
+              companyName="IT-Service Sebastian Reimers" companyWebsite="studio-link.de"
+              pluginIsMidiEffectPlugin="0" buildAUv3="0">
   <MAINGROUP id="DUM3oU" name="StudioLink">
     <GROUP id="{955FC8FE-E95E-228D-6F24-8773B7D5C270}" name="Source">
       <FILE id="cqCpYu" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -65,4 +66,7 @@
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
