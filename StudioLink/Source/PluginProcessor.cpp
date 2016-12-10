@@ -18,7 +18,14 @@ pthread_t tid;
 bool running = false;
 
 
+static void ua_exit_handler(void *arg)
+{
+	(void)arg;
+	debug("ua exited -- stopping main runloop\n");
 
+	/* The main run-loop can be stopped now */
+	re_cancel();
+}
 
 //==============================================================================
 StudioLinkAudioProcessor::StudioLinkAudioProcessor()
@@ -38,9 +45,11 @@ StudioLinkAudioProcessor::StudioLinkAudioProcessor()
                 (void)sys_coredump_set(true);
                 libre_init();
                 conf_configure();
+		baresip_init(conf_config(), false);
                 ua_init("baresip v" BARESIP_VERSION " (" ARCH "/" OS ")",
                                 true, true, true, false);
                 conf_modules();
+		uag_set_exit_handler(ua_exit_handler, NULL);
                 pthread_create(&tid, NULL, (void*(*)(void*))&re_main, NULL);
                 running = true;
         }
@@ -51,12 +60,15 @@ StudioLinkAudioProcessor::StudioLinkAudioProcessor()
 StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 {
 	if (!effect_session_stop(sess)) {
-		//re_cancel();
 		ua_stop_all(false);
-		(void)pthread_join(tid, NULL);
+		sys_msleep(500);
 		ua_close();
+		conf_close();
+		baresip_close();
 		mod_close();
 		libre_close();
+		tmr_debug();
+		mem_debug();
 		running = false;
 	}
 
