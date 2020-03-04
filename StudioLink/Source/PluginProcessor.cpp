@@ -63,6 +63,7 @@ StudioLinkAudioProcessor::~StudioLinkAudioProcessor()
 		ua_stop_all(false);
 		sys_msleep(500);
 		ua_close();
+		module_app_unload();
 		conf_close();
 		baresip_close();
 		mod_close();
